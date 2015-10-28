@@ -3,7 +3,6 @@
 // License: LGPL, https://github.com/rhcad
 //
 
-#include "mglog.h"
 #include "mgexline.h"
 #include "mgshape_.h"
 #include <sstream>
@@ -34,10 +33,21 @@ bool MgExLine::_draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment
     
     std::stringstream ss;
     if ( paramLength > 0 )
-        ss << paramLength << szUnit;
+    {
+        char szBuf[256];
+        if ( strcmp(szUnit, "ft") == 0)
+            sprintf(szBuf, "%.02fft", paramLength/0.3048f);
+        else if ( strcmp(szUnit, "in") == 0)
+            sprintf(szBuf, "%.02fin", paramLength/0.0254f);
+        else if ( strcmp(szUnit, "cm") == 0 )
+            sprintf(szBuf, "%.02fcm", paramLength * 100);
+        else
+            sprintf(szBuf, "%.02fm", paramLength);
+        
+        ss << szBuf;
+    }
     else
-        ss << text << szUnit;
-    text = ss.str().c_str();
+        ss << text;
     
     const char *curText;
     float textWidth, r;

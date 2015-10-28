@@ -74,9 +74,13 @@ void MgNoteIcon::_update()
 float MgNoteIcon::_hitTest(const Point2d& pt, float tol, MgHitResult& res) const
 {
     Point2d points[4] = { _extent.leftTop(), _extent.rightTop(), _extent.rightBottom(), _extent.leftBottom() };
-    return linesHit(4, points, true, pt, tol, res);
+    return linesHit(4, points, true, pt, tol*1.5, res);
 }
 
+bool MgNoteIcon::_hitTestBox(const Box2d& rect) const
+{
+    return rect.contains(_point);
+}
 
 bool MgNoteIcon::_save(MgStorage* s) const
 {

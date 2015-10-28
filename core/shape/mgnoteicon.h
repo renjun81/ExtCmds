@@ -39,6 +39,8 @@ protected:
     bool _save(MgStorage* s) const;
     bool _load(MgShapeFactory* factory, MgStorage* s);
     bool _draw(int mode, GiGraphics& gs, const GiContext& ctx, int segment) const;
+    
+    bool _hitTestBox(const Box2d& rect) const;
 
 private:
     bool drawBox(GiGraphics& gs, const GiContext& ctx) const;
